@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}Checkout{% endblock %}
+
+{% block page_heading %}Checkout{% endblock %}
+{% block page_subheading %}Enter your details to complete purchase{% endblock %}
+
+{% block content %}
+<div class="row g-4">
+    <div class="col-12 col-lg-7">
+        <div class="border rounded p-3">
+            <h6 class="mb-3">Shipping information</h6>
+            <div class="row g-3">
+                <div class="col-12 col-md-6">
+                    <label class="form-label">First name</label>
+                    <input class="form-control" disabled>
+                </div>
+                <div class="col-12 col-md-6">
+                    <label class="form-label">Last name</label>
+                    <input class="form-control" disabled>
+                </div>
+                <div class="col-12">
+                    <label class="form-label">Address</label>
+                    <input class="form-control" disabled>
+                </div>
+                <div class="col-6">
+                    <label class="form-label">City</label>
+                    <input class="form-control" disabled>
+                </div>
+                <div class="col-3">
+                    <label class="form-label">State</label>
+                    <input class="form-control" disabled>
+                </div>
+                <div class="col-3">
+                    <label class="form-label">ZIP</label>
+                    <input class="form-control" disabled>
+                </div>
+            </div>
+        </div>
+        <div class="border rounded p-3 mt-3">
+            <h6 class="mb-3">Payment</h6>
+            <div class="row g-3">
+                <div class="col-12">
+                    <label class="form-label">Card number</label>
+                    <input class="form-control" disabled>
+                </div>
+                <div class="col-6">
+                    <label class="form-label">Expiry</label>
+                    <input class="form-control" disabled>
+                </div>
+                <div class="col-6">
+                    <label class="form-label">CVC</label>
+                    <input class="form-control" disabled>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-lg-5">
+        <div class="border rounded p-3">
+            <h6 class="mb-3">Order summary</h6>
+            <ul class="list-group list-group-flush">
+                {% for i in "12" %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span>Product Title</span>
+                    <span>$49.00</span>
+                </li>
+                {% endfor %}
+            </ul>
+            <div class="d-flex justify-content-between mt-3 fw-semibold"><span>Total</span><span>$98.00</span></div>
+            <button class="btn btn-primary w-100 mt-3" type="button" disabled>Place order</button>
+        </div>
+    </div>
+</div>
+{% endblock %}

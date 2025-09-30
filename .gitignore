@@ -1,0 +1,32 @@
+# Python cache / compiled files
+__pycache__/
+*.py[cod]
+*.pyo
+*.so
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# Django stuff
+db.sqlite3
+media/
+
+# Logs
+*.log
+
+# IDE / Editor files
+.vscode/
+.idea/
+*.swp
+*~
+.DS_Store
+
+# Pipenv
+Pipfile.lock
+
+# Environment variables / secrets
+.env
+
+

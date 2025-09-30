@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}{% endblock %}
+    </title>
+    {% load static %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'base.css' %}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <header>
+        <nav class="navbar navbar-expand-lg border-bottom">
+            <div class="container">
+                <a class="navbar-brand fw-semibold d-flex align-items-center" href="{% url "home" %}">
+                    {% comment %} <img src="{% static "https://via.placeholder.com/32x32/0d6efd/ffffff?text=E" %}" alt="Logo" class="me-2" style="width: 32px; height: 32px;"> {% endcomment %}
+                    TechStore
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="{% url "home" %}">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url "product-list" %}">Shop</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Category 1</a></li>
+                                <li><a class="dropdown-item" href="#">Category 2</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#">All Categories</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="d-flex align-items-center gap-3">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'profile' %}" class="d-flex align-items-center">
+                        <img src="{% if user.profile.image %}{{ user.profile.image.url }}{% else %}{% static 'images/loggedin_avatar.png' %}{% endif %}" 
+                        alt="Profile" class="rounded-circle" style="width: 36px; height: 36px; object-fit: cover;"></a>
+                    {% else %}
+                        <a href="{% url 'profile' %}" class="d-flex align-items-center">
+                        <img src="{% if user.profile.image %}{{ user.profile.image.url }}{% else %}{% static 'images/default_avatar.png' %}{% endif %}" 
+                        alt="Profile" class="rounded-circle" style="width: 36px; height: 36px; object-fit: cover;">
+                        </a>
+                    {% endif %}
+                     <a href="{% url 'cart_detail' %}" class="position-relative"> 
+                        <button class="btn btn-outline-primary position-relative" type="button" aria-label="Cart">
+                            <span class="bi bi-cart"></span>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{{cart_total_items}}</span>
+                        </button>
+                    </a> 
+                        <div class="dropdown">
+                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Account</button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                {% if user.is_authenticated %}
+                                    <a href="{% url "logout" %}"><li><button class="dropdown-item" type="button">Sign out</button></li></a>
+                                {% else %}
+                                    <a href="{% url "login" %}"><li><button class="dropdown-item" type="button">Sign in</button></li></a>
+                                {% endif %}
+
+
+                                    
+                                <li><hr class="dropdown-divider"></li>
+                                <a href="{% url "signup" %}"> <li><button class="dropdown-item" type="button">Sign up</button></li></a>
+
+                            </ul>
+                        </div>
+                        <button id="themeToggle" class="btn btn-outline-secondary" type="button" aria-label="Toggle theme">🌙</button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex-grow-1">
+        {% block header %}
+        <section class="py-4 bg-body-tertiary border-bottom">
+            <div class="container d-flex justify-content-between align-items-center">
+                <div>
+                    <h1 class="h4 m-0">{% block page_heading %}{% endblock %}</h1>
+                    <p class="text-secondary m-0 small">{% block page_subheading %}{% endblock %}</p>
+                </div>
+                <form class="d-none d-md-flex" role="search" onsubmit="return false">
+                    <input class="form-control" type="search" placeholder="Search products…" aria-label="Search">
+                </form>
+            </div>
+        </section>
+        {% endblock %}
+
+        <section class="py-4">
+            <div class="container">
+                {% block content %}{% endblock %}
+            </div>
+        </section>
+    </main>
+
+    <footer class="mt-auto border-top">
+        <div class="container py-4 d-flex flex-column flex-md-row gap-3 justify-content-between align-items-start align-items-md-center">
+            <div>
+                <span class="fw-semibold">TechStore</span>
+                <span class="text-secondary ms-2">© <span id="year"></span></span>
+            </div>
+            <ul class="nav">
+                <li class="nav-item"><a class="nav-link px-2" href="#">About</a></li>
+                <li class="nav-item"><a class="nav-link px-2" href="#">Contact</a></li>
+                <li class="nav-item"><a class="nav-link px-2" href="#">Privacy</a></li>
+                <li class="nav-item"><a class="nav-link px-2" href="#">Terms</a></li>
+            </ul>
+            <div class="d-flex gap-2">
+                <a class="btn btn-outline-secondary btn-sm" href="#" aria-label="Twitter">T</a>
+                <a class="btn btn-outline-secondary btn-sm" href="#" aria-label="Facebook">F</a>
+                <a class="btn btn-outline-secondary btn-sm" href="#" aria-label="Instagram">I</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script>
+        (function () {
+            const root = document.documentElement;
+            const saved = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const initial = saved || (prefersDark ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-bs-theme', initial);
+            const toggle = document.getElementById('themeToggle');
+            if (toggle) {
+                toggle.textContent = initial === 'dark' ? '☀️' : '🌙';
+                toggle.addEventListener('click', function () {
+                    const current = root.getAttribute('data-bs-theme') === 'dark' ? 'light' : 'dark';
+                    root.setAttribute('data-bs-theme', current);
+                    localStorage.setItem('theme', current);
+                    toggle.textContent = current === 'dark' ? '☀️' : '🌙';
+                });
+            }
+            const yearEl = document.getElementById('year');
+            if (yearEl) yearEl.textContent = new Date().getFullYear();
+        })();
+    </script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

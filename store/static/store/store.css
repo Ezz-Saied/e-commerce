@@ -1,0 +1,12 @@
+.card .ratio {
+  background-image: linear-gradient(135deg, rgba(0,0,0,.04), rgba(0,0,0,.02));
+}
+
+[data-bs-theme="dark"] .card .ratio {
+  background-image: linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+}
+
+.product-price {
+  font-size: 1.125rem;
+  font-weight: 600;
+}
