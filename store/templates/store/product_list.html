@@ -41,8 +41,8 @@
                         <div class="mt-auto d-flex justify-content-between align-items-center">
                             <span class="fw-semibold">{{product.price}}</span>
                            
-                                <button class="btn btn-primary">Add to cart</button>
-                            </form>
+                            {% include "store/includes/adding_form.html" with product=product %}
+
                         </div>
                     </div>
                 </div>

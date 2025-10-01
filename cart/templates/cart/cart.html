@@ -6,7 +6,27 @@
 {% if user.is_authenticated %}
     <ul>
     {% for item in cart_items %}
-    <li> {{item.product.name}} - Quantity: {{item.quantity}} - Price: ${{item.product.price}}- subtotall = ${{item.subtotal}}</li>
+    <li> {{item.product.name}} - Quantity: {{item.quantity}} - Price: ${{item.product.price}}- subtotall = ${{item.subtotal}}
+
+        <form action = "{% url "remove_from_cart" %}" method="post" >
+            {% csrf_token %}
+            <input type="hidden" name="cartitem_id" value="{{item.id}}">
+            <button class="btn btn-primary">Remove</button>
+        </form>
+        
+
+    <form action="{% url "update_cart" %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="cartitem_id" value="{{item.id}}">
+        <button  type="submit" name="action" value="decrease">-</button>
+        <span>{{ item.quantity }}</span>
+        <button  type="submit" name="action" value="increase">+</button>
+    </form>
+
+
+
+    </li>
+
     {% empty %}
     <li>Your cart is empty.</li>
     {% endfor %}

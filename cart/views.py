@@ -7,8 +7,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404
 
 
-
-
 class CartView(ListView):
     model = CartItem
     template_name = 'cart/cart.html'
@@ -24,6 +22,8 @@ class CartView(ListView):
         context = super().get_context_data(**kwargs)
         context["grand_totall"] =  CartItem.objects.grand_total(self.request.user)
         return context
+
+
 
 class AddToCartView(LoginRequiredMixin, View):
     def post(self, request):
@@ -42,3 +42,27 @@ class AddToCartView(LoginRequiredMixin, View):
     
 
 
+class Remove_from_cartView(LoginRequiredMixin, View):
+    def post(self, request):
+        cartitem_id = request.POST["cartitem_id"]
+        cart_item = get_object_or_404(CartItem, id=cartitem_id, user=request.user)
+        cart_item.delete()
+        return redirect("cart_detail")
+    
+
+class Update_cartView(LoginRequiredMixin, View):
+    def post(self, request):
+        cartitem_id = request.POST["cartitem_id"]
+        cart_item = CartItem.objects.get(id=cartitem_id, user=request.user)
+        if request.POST["action"] == "increase":
+            cart_item.quantity += 1
+
+        else:
+            if cart_item.quantity > 1:
+                cart_item.quantity -= 1
+            else:
+                cart_item.delete()
+                return redirect("cart_detail")
+            
+        cart_item.save()
+        return redirect("cart_detail")
