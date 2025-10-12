@@ -23,15 +23,21 @@
         <button  type="submit" name="action" value="increase">+</button>
     </form>
 
-
-
-    </li>
-
     {% empty %}
     <li>Your cart is empty.</li>
     {% endfor %}
-    <li>Grand Totall = ${{grand_totall}}</li>
+    {% if cart_items%} <li>Grand Totall = ${{grand_totall}}</li>
+
+        <a href="{% url "check_out" %}"><button class="btn btn-primary"> Check Out</button></a>
+     {% endif %}
+
+    </li>
     </ul>
+
+    
+
+
+
 {% else %}
     <p>Please <a href="{% url 'login' %}">log in</a>
     {% endif %}
