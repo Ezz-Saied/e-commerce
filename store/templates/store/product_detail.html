@@ -21,8 +21,8 @@
             <p class="m-0">{{product.description}}</p>
             <div class="d-flex gap-2 mt-2">
                 
-                        <button class="btn btn-primary">Add to cart</button>
-                    </form>
+                {% include "store/includes/adding_form.html" with product=product %}
+                
                 <button class="btn btn-outline-secondary" type="button" disabled>Wishlist</button>
             </div>
         </div>

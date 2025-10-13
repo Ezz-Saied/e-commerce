@@ -1,0 +1,115 @@
+/* === General Page Layout === */
+body {
+    background-color: #f8f9fa;
+    font-family: "Segoe UI", Roboto, sans-serif;
+    color: #333;
+}
+
+/* === Order Container === */
+.order-detail {
+    max-width: 700px;
+    margin: 40px auto;
+    background: #fff;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* === Header === */
+.order-detail h2 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.order-detail p {
+    margin: 5px 0;
+    font-size: 15px;
+}
+
+/* === Status styling === */
+.status {
+    padding: 3px 10px;
+    border-radius: 12px;
+    color: white;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.status.pending {
+    background-color: #f39c12;
+}
+
+.status.completed {
+    background-color: #2ecc71;
+}
+
+.status.cancelled {
+    background-color: #e74c3c;
+}
+
+/* === Divider === */
+hr {
+    margin: 25px 0;
+    border: none;
+    border-top: 1px solid #ddd;
+}
+
+/* === Items Section === */
+.items-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.item-card {
+    background: #fdfdfd;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    padding: 15px 20px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.item-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.item-header h4 {
+    margin: 0;
+    font-size: 17px;
+    color: #34495e;
+}
+
+.item-header .price {
+    font-weight: 700;
+    color: #27ae60;
+}
+
+.empty {
+    text-align: center;
+    color: #888;
+    margin-top: 10px;
+}
+
+/* === Responsive === */
+@media (max-width: 600px) {
+    .order-detail {
+        padding: 20px;
+    }
+
+    .item-card {
+        padding: 12px;
+    }
+
+    .item-header h4 {
+        font-size: 15px;
+    }
+}

@@ -1,13 +1,28 @@
 {% extends "base.html" %}
-{% block title %} Profile {% endblock %}
+{% load static %}
+
+{% block title %}Profile{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'accounts/profile.css' %}">
+{% endblock %}
 
 {% block content %}
-    {% if user.is_authenticated %}
-        <h2>Profile</h2>
-        <p>Username: {{ user.username }}</p>
-        <p>Email: {{ user.email }}</p>
-    {% else %}
-        <p>Please log in to view your profile.</p>
-    {% endif %}
+<div class="profile-wrapper">
+  {% if user.is_authenticated %}
+      <h2>Your Profile</h2>
 
+      <div class="profile-details">
+          <p><strong>Username:</strong> {{ user.username }}</p>
+          <p><strong>Email:</strong> {{ user.email }}</p>
+      </div>
+
+      <div class="profile-actions">
+          <a href="{% url 'orders-list' %}" class="profile-btn orders-btn">My Orders</a>
+          <a href="{% url 'logout' %}" class="profile-btn logout-btn">Logout</a>
+      </div>
+  {% else %}
+      <p>Please log in to view your profile.</p>
+  {% endif %}
+</div>
 {% endblock %}

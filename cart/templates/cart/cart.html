@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Your Cart{% endblock %}
+{% comment %} {% block title %}Your Cart{% endblock %}
 
 {% block content %}
 <h2>{% if user.is_authenticated %}{{request.user}} Cart {% else %} Login to show your cart {% endif %}</h2>
@@ -42,4 +42,94 @@
     <p>Please <a href="{% url 'login' %}">log in</a>
     {% endif %}
 
+{% endblock %} {% endcomment %}
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% load static %}
+{% block title %}Your Cart{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'cart/cart.css' %}">
+
+<div class="cart-container">
+    <h2>
+        {% if user.is_authenticated %}
+            {{ request.user }}'s Cart
+        {% else %}
+            Login to view your cart
+        {% endif %}
+    </h2>
+
+    {% if user.is_authenticated %}
+        {% if cart_items %}
+            <div class="cart-items">
+                {% for item in cart_items %}
+                <div class="cart-item">
+                    <div class="cart-info">
+                        <h3>{{ item.product.name }}</h3>
+                        <p>Price: ${{ item.product.price }}</p>
+                        <p>Subtotal: ${{ item.subtotal }}</p>
+                    </div>
+
+                    <div class="cart-controls">
+                        <form action="{% url 'update_cart' %}" method="post" class="quantity-form">
+                            {% csrf_token %}
+                            <input type="hidden" name="cartitem_id" value="{{ item.id }}">
+                            <button type="submit" name="action" value="decrease" class="qty-btn">−</button>
+                            <span class="quantity">{{ item.quantity }}</span>
+                            <button type="submit" name="action" value="increase" class="qty-btn">+</button>
+                        </form>
+
+                        <form action="{% url 'remove_from_cart' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="cartitem_id" value="{{ item.id }}">
+                            <button type="submit" class="remove-btn">Remove</button>
+                        </form>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="cart-summary">
+                <p><strong>Grand Total:</strong> ${{ grand_totall }}</p>
+                <a href="{% url 'check_out' %}" class="checkout-btn">Proceed to Checkout</a>
+            </div>
+        {% else %}
+            <p class="empty">Your cart is empty.</p>
+        {% endif %}
+    {% else %}
+        <p>Please <a href="{% url 'login' %}">log in</a> to view your cart.</p>
+    {% endif %}
+</div>
 {% endblock %}

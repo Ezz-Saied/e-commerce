@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %} Order_Confirmation {% endblock %}
+
+{% block content %}
+
+<h2>You Have Place Your Order Sucessfully </h2>
+<div>
+<ul>
+        <li>Order ID: {{order.id}}</li>
+        <li>Date: {{order.date}}</li>
+        <li>Total Price: ${{order.total_price}}</li>
+        <li>Status: {{order.status}}</li>
+</ul>
+</div>
+{% endblock %}

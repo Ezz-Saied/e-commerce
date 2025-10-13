@@ -70,3 +70,34 @@ footer .nav-link:hover {
 .ratio {
     position: relative;
 }
+
+
+
+
+
+
+
+.cart-link {
+  position: relative;
+  display: inline-block;
+}
+
+.cart-icon {
+  font-size: 1.8rem;
+  color: #0d6efd; /* Bootstrap primary blue */
+  transition: color 0.2s ease;
+}
+
+.cart-icon:hover {
+  color: #084298;
+}
+
+/* Badge styling */
+.cart-badge {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  transform: translate(-30%, -10%); /* lower the badge slightly */
+  font-size: 0.65rem;
+  padding: 4px 5px;
+}

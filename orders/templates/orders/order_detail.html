@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Order Details{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'orders/order_detail.css' %}">
+
+<div class="order-detail">
+    <h2>Order #{{ order.id }}</h2>
+    <p><strong>Date:</strong> {{ order.date }}</p>
+    <p><strong>Status:</strong> <span class="status {{ order.status|lower }}">{{ order.status }}</span></p>
+    <p><strong>Total:</strong> ${{ order.total_price }}</p>
+
+    <hr>
+
+    <h3>Items</h3>
+    <div class="items-list">
+        {% for item in items %}
+        <div class="item-card">
+            <div class="item-header">
+                <h4>{{ item.product.name }}</h4>
+                <span class="price">${{ item.price }}</span>
+            </div>
+            <p>Quantity: {{ item.quantity }}</p>
+            <p>Subtotal: ${{ item.subtotal }}</p>
+        </div>
+        {% empty %}
+        <p class="empty">No items found in this order.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

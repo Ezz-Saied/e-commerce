@@ -4,6 +4,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Order, OrderItem
 from cart.models import CartItem
 from datetime import date
+from django.views.generic import ListView, DetailView
+
 
 class Check_OutView(LoginRequiredMixin, View):
     def get(self, request):
@@ -30,4 +32,29 @@ class Check_OutView(LoginRequiredMixin, View):
                 price=item.product.price
             )
         cart_items.delete()
-        return redirect("home")
+        return redirect("success")
+    
+class SuccessView(LoginRequiredMixin, View):
+    def get(self, request):
+        return render(request, "orders/success.html", {
+            "order" : Order.objects.filter(user=request.user).last()
+        })
+       
+
+
+    
+class OrderView(ListView):
+    model = Order
+    template_name = "orders/orders.html"
+    context_object_name = "orders"
+
+
+class Order_DetailView(DetailView):
+    model = Order
+    template_name = "orders/order_detail.html"
+    context_object_name = "order"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["items"] = self.object.items.all()
+        return context

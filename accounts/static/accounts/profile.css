@@ -1,0 +1,94 @@
+/* === PROFILE PAGE STYLING === */
+.profile-wrapper {
+  max-width: 600px;
+  margin: 80px auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.profile-wrapper h2 {
+  text-align: center;
+  font-size: 26px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* === DETAILS === */
+.profile-details {
+  font-size: 17px;
+  line-height: 1.8;
+  color: #444;
+}
+
+.profile-details p {
+  background-color: #f9f9f9;
+  padding: 10px 15px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #eee;
+}
+
+.profile-details p strong {
+  color: #222;
+}
+
+/* === ACTION BUTTONS === */
+.profile-actions {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.profile-btn {
+  display: inline-block;
+  text-decoration: none;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.orders-btn {
+  background-color: #007bff;
+}
+
+.orders-btn:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+.logout-btn {
+  background-color: #dc3545;
+}
+
+.logout-btn:hover {
+  background-color: #b02a37;
+  transform: translateY(-2px);
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 600px) {
+  .profile-wrapper {
+    margin: 40px 15px;
+    padding: 20px;
+  }
+
+  .profile-wrapper h2 {
+    font-size: 22px;
+  }
+
+  .profile-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .profile-btn {
+    font-size: 15px;
+    padding: 8px 16px;
+  }
+}
