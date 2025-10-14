@@ -1,34 +1,52 @@
 {% extends "base.html" %}
 {% block title %} Check-Out {% endblock %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'orders/checkout.css' %}">
+{% endblock %}
 
 {% block content %}
-<ul>
-    {% for item in cart_items %}
-        <li> {{item.quantity}} : {{item.product.name}}  ${{item.product.price}}</li>
-    {% endfor %}
-</ul>
-        
-<form action="{% url "check_out" %}" method="post">
+<div class="checkout-container">
+    <h2 class="checkout-title">Checkout Summary</h2>
+
+    <div class="checkout-items">
+        {% for item in cart_items %}
+        <div class="checkout-item">
+            <span>{{ item.quantity }} × {{ item.product.name }}</span>
+            <span>${{ item.product.price }}</span>
+        </div>
+        {% empty %}
+        <p>Your cart is empty.</p>
+        {% endfor %}
+    </div>
+
+    <form action="{% url 'check_out' %}" method="post" class="checkout-form">
         {% csrf_token %}
+        <h3 class="section-title">Shipping Information</h3>
 
-    <!-- Shipping Info -->
-        <label for="address">Shipping Address:</label>
-        <input type="text" name="address" id="address" required>
+        <label for="address">Address</label>
+        <input type="text" name="address" id="address" placeholder="123 Main St" required>
 
-        <label for="city">City:</label>
-        <input type="text" name="city" id="city" required>
+        <label for="city">City</label>
+        <input type="text" name="city" id="city" placeholder="Cairo" required>
 
-        <label for="postal_code">Postal Code:</label>
-        <input type="text" name="postal_code" id="postal_code" required>
+        <label for="postal_code">Postal Code</label>
+        <input type="text" name="postal_code" id="postal_code" placeholder="12345" required>
 
-        <!-- Payment Method -->
-        <label for="payment">Payment Method:</label>
+        <h3 class="section-title">Payment</h3>
+
+        <label for="payment">Payment Method</label>
         <select name="payment" id="payment">
             <option value="cod">Cash on Delivery</option>
-            <option value="card">Credit/Debit Card</option>
+            <option value="card">Credit / Debit Card</option>
         </select>
-        Grand Totall = ${{cart_grand_total}}
-        <button type="submit">Place Order</button>
-    </form>
 
+        <div class="checkout-total">
+            <strong>Grand Total:</strong> ${{ cart_grand_total }}
+        </div>
+
+        <button type="submit" class="btn-submit">Place Order</button>
+    </form>
+</div>
 {% endblock %}

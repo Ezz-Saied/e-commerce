@@ -1,16 +1,27 @@
 {% extends "base.html" %}
+{% block title %} Order Confirmation {% endblock %}
+{% load static %}
 
-{% block title %} Order_Confirmation {% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'orders/success.css' %}">
+{% endblock %}
 
 {% block content %}
+<div class="success-container">
+    <div class="success-icon">✅</div>
+    <h2 class="success-title">Your Order Has Been Placed Successfully!</h2>
+    <p class="success-message">Thank you for shopping with us. You will receive an email confirmation shortly.</p>
 
-<h2>You Have Place Your Order Sucessfully </h2>
-<div>
-<ul>
-        <li>Order ID: {{order.id}}</li>
-        <li>Date: {{order.date}}</li>
-        <li>Total Price: ${{order.total_price}}</li>
-        <li>Status: {{order.status}}</li>
-</ul>
+    <div class="order-details">
+        <h3>Order Summary</h3>
+        <ul>
+            <li><strong>Order ID:</strong> {{ order.id }}</li>
+            <li><strong>Date:</strong> {{ order.date }}</li>
+            <li><strong>Total Price:</strong> ${{ order.total_price }}</li>
+            <li><strong>Status:</strong> {{ order.status }}</li>
+        </ul>
+    </div>
+
+    <a href="{% url 'home' %}" class="btn-home">Continue Shopping</a>
 </div>
 {% endblock %}

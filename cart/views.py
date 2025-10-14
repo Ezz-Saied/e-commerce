@@ -53,7 +53,7 @@ class Remove_from_cartView(LoginRequiredMixin, View):
 class Update_cartView(LoginRequiredMixin, View):
     def post(self, request):
         cartitem_id = request.POST["cartitem_id"]
-        cart_item = CartItem.objects.get(id=cartitem_id, user=request.user)
+        cart_item = get_object_or_404(CartItem, id=cartitem_id, user=request.user)
         if request.POST["action"] == "increase":
             cart_item.quantity += 1
 
